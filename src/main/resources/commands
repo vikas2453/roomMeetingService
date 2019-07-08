@@ -1,0 +1,7 @@
+Spring Boot can automatically create the schema (DDL scripts) of your DataSource. Following are the steps taken to make it work with Flyway
+1. Comment out the flyway dependency and any flyway dependent class so that Hibernate's schema creation strategy takes preference
+2. Make sure that property spring.jpa.show-sql=true
+3. Note down all the hibernate statements from the logs for schema creation and modify them such that each statement can be run independently
+4. Copy all those sql statements in V2.1__xxx.sql
+5. change the url of the database to a different DB in property file so that flyway creats a new DB and schema and any other sql you want to run
+6. run the project and look H2 console.  
