@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Config {
 
-	@Value("{flyway.sqlLocation}")
+	@Value("${flywaySqlLocation}")
 	private String sqlLocation;
 	
 }

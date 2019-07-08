@@ -1,9 +1,14 @@
 package com.hcl.hackathon.fullstack.model;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import lombok.Data;
 
@@ -11,10 +16,14 @@ import lombok.Data;
 @Data
 public class TimeSlot {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	int  TimeSlotId;
 	
-	private Instant startTime;
+	private LocalDate date;
 	
-	private Instant endTime;
-
+	private LocalTime startTime;
+	
+	private LocalTime endTime;
+	
+	
 }
