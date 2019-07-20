@@ -32,7 +32,7 @@ public class RoomController {
 			@PathParam("date") LocalDate date, 
 			@PathParam("startTime") LocalTime startTime, 
 			@PathParam("endTime") LocalTime endTime) {
-		return roomService.filteredListofRoom(date, startTime, endTime, cityName, buildingName, floor);
+		return roomService.filterListofRoom(date, startTime, endTime, cityName, buildingName, floor);
 
 	}
 

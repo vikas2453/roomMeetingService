@@ -24,7 +24,7 @@ public class RoomService {
 	@Autowired
 	private BookedSlotRepo bookedSlotRepo;
 	
-	public List<Room> filteredListofRoom( LocalDate date, 
+	public List<Room> filterListofRoom( LocalDate date, 
 			 LocalTime startTime, 
 		 LocalTime endTime, String cityName, String buildingName, int floor){
 		List<Room> totalRooms= roomRepo.findByLocationCityAndLocationBuildingNameAndLocationFloor(cityName, buildingName, floor);

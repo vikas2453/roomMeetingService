@@ -6,16 +6,13 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import com.hcl.hackathon.fullstack.BaseTest;
 import com.hcl.hackathon.fullstack.model.BookedSlot;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class BookedSlotRepoTest {
+
+public class BookedSlotRepoTest extends BaseTest{
 	
 	@Autowired
 	private BookedSlotRepo bookedSlotRepo;

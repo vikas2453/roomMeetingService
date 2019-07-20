@@ -5,14 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
-@AllArgsConstructor
+
 public class Amenity {
 	
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int amenityId;
@@ -21,5 +22,10 @@ public class Amenity {
 	
 	// Feature itself can be a class but for simplicity taking it as a String
 	private String feature;
+	public Amenity(String name, String feature) {
+		super();
+		this.name = name;
+		this.feature = feature;
+	}
 
 }
