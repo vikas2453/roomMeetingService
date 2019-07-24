@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,10 @@ import com.hcl.hackathon.fullstack.model.Room;
 import com.hcl.hackathon.fullstack.repo.BookedSlotRepo;
 import com.hcl.hackathon.fullstack.repo.RoomRepo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class RoomService {
 	
 	@Autowired
@@ -24,14 +29,17 @@ public class RoomService {
 	@Autowired
 	private BookedSlotRepo bookedSlotRepo;
 	
+	@Transactional
 	public List<Room> filterListofRoom( LocalDate date, 
 			 LocalTime startTime, 
 		 LocalTime endTime, String cityName, String buildingName, int floor){
 		List<Room> totalRooms= roomRepo.findByLocationCityAndLocationBuildingNameAndLocationFloor(cityName, buildingName, floor);
+		log.info("totalRooms:"+totalRooms);
 		List<BookedSlot> bookedSlots=bookedSlotRepo.findByTimeSlotDateAndTimeSlotStartTime(date, startTime);
 		Map<Integer, String> bookedRoomMap=getBookedMap(bookedSlots);
+		log.info("bookedRoomMap "+bookedRoomMap);
 		List<Room> availableRooms= filterRoomSlots(totalRooms, bookedRoomMap);
-		
+		log.info("availableRooms "+availableRooms);
 		return availableRooms;
 	}
 
