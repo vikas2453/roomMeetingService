@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hcl.hackathon.fullstack.model.Room;
 import com.hcl.hackathon.fullstack.service.RoomService;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-
+@AllArgsConstructor
 public class RoomController {
 
 	@Autowired
