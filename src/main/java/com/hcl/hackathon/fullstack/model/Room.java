@@ -3,23 +3,29 @@ package com.hcl.hackathon.fullstack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
+import lombok.ToString.Exclude;
 
 @Data
 @Entity
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Room {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
+	@JsonIgnore
 	private int roomId;
 
 	//public static RoomBuilder roomBuilder;
@@ -28,10 +34,12 @@ public class Room {
 
 	private String description;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.DETACH, fetch=FetchType.LAZY)
+	@JsonIgnore
+	@Exclude
 	private List<Amenity> amenities;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;
 
 	private int maxoccupancy;
@@ -47,6 +55,14 @@ public class Room {
 		this.location = location;
 		this.amenities = amenities;
 	}
+	
+	public Room(String roomName, String description,  Location location, int maxoccupancy) {
+		this.roomName = roomName;
+		this.description = description;
+		this.maxoccupancy = maxoccupancy;
+		this.location = location;
+	}
+
 
 	/*
 	 * @Transient List<TimeSlot> availableSlots;

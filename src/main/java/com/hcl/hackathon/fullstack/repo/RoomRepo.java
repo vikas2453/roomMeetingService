@@ -13,5 +13,7 @@ public interface RoomRepo extends JpaRepository<Room, Integer> {
 	
 	public List<Room> findByLocationCityAndLocationBuildingNameAndLocationFloorAndAmenitiesNameIn( String cityName, String buildingName,int floor,  List<String> ameneites);
 	public List<Room> findByLocationCityAndLocationBuildingNameAndLocationFloor( String cityName, String buildingName,int floor);
+	public List<Room> findByLocationCityAndLocationBuildingName( String cityName, String buildingName);
+	public List<Room> findByLocationCity( String cityName);
 
 }

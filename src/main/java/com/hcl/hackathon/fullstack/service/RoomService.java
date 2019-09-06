@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hcl.hackathon.fullstack.exceptions.InvalidRoomException;
 import com.hcl.hackathon.fullstack.model.BookedSlot;
+import com.hcl.hackathon.fullstack.model.Location;
 import com.hcl.hackathon.fullstack.model.Room;
 import com.hcl.hackathon.fullstack.repo.BookedSlotRepo;
+import com.hcl.hackathon.fullstack.repo.LocationRepo;
 import com.hcl.hackathon.fullstack.repo.RoomRepo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,18 +30,29 @@ public class RoomService {
 	private RoomRepo roomRepo;
 
 	@Autowired
+	private LocationRepo locRepo;
+
+	@Autowired
 	private BookedSlotRepo bookedSlotRepo;
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public List<Room> filterListofRoom(LocalDate date, LocalTime startTime, LocalTime endTime, String cityName,
-			String buildingName, int floor) {
-		List<Room> totalRooms = roomRepo.findByLocationCityAndLocationBuildingNameAndLocationFloor(cityName,
-				buildingName, floor);
+			String buildingName, Integer floor) {
+		List<Room> allRooms;
+		if (cityName != null && buildingName != null && floor != null)
+			allRooms = roomRepo.findByLocationCityAndLocationBuildingNameAndLocationFloor(cityName, buildingName,
+					floor);
+		else if (cityName != null && buildingName != null)
+			allRooms = roomRepo.findByLocationCityAndLocationBuildingName(cityName, buildingName);
+		else if (cityName != null)
+			allRooms = roomRepo.findByLocationCity(cityName);
+		else
+			allRooms = roomRepo.findAll();
 
 		List<BookedSlot> bookedSlots = bookedSlotRepo.findByTimeSlotDateAndTimeSlotStartTime(date, startTime);
 		Map<Integer, String> bookedRoomMap = getBookedMap(bookedSlots);
 
-		List<Room> availableRooms = filterRoomSlots(totalRooms, bookedRoomMap);
+		List<Room> availableRooms = filterRoomSlots(allRooms, bookedRoomMap);
 
 		return availableRooms;
 	}
@@ -55,6 +69,30 @@ public class RoomService {
 		List<Room> availableRooms = totalRooms.stream().filter(s -> (!bookedRoomMap.containsKey(s.getRoomId())))
 				.collect(Collectors.toList());
 		return availableRooms;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void add(Room room) {
+		Location loc = room.getLocation();
+		List<Room> roomList = roomRepo.findByLocationCityAndLocationBuildingName(loc.getCity(), loc.getBuildingName());
+		boolean roomExist = roomList.parallelStream()
+				.anyMatch(r -> r.getRoomName().equalsIgnoreCase(room.getRoomName()));
+
+		if (!roomExist) {
+			if (!locExist(loc))
+				locRepo.saveAndFlush(loc);
+
+			roomRepo.saveAndFlush(room);
+
+		} else {
+			throw new InvalidRoomException(
+					"There is already a room with this name on this location, Either please change the room or the location");
+		}
+
+	}
+
+	private boolean locExist(Location loc) {
+		return locRepo.queryLocationByCityNBuildingName(loc.getCity(), loc.getBuildingName());
 	}
 
 }
