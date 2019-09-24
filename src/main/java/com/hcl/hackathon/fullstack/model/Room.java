@@ -25,7 +25,7 @@ public class Room {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonIgnore
+	
 	private int roomId;
 
 	//public static RoomBuilder roomBuilder;
@@ -35,7 +35,6 @@ public class Room {
 	private String description;
 
 	@OneToMany(cascade = CascadeType.DETACH, fetch=FetchType.LAZY)
-	@JsonIgnore
 	@Exclude
 	private List<Amenity> amenities;
 
