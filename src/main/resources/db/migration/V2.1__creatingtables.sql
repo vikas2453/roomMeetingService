@@ -1,10 +1,10 @@
-drop table amenity if exists;
-drop table location if exists;
-drop table room if exists;
-drop table room_amenities if exists;
-drop table booked_slot if exists;
-drop table time_slot if exists;
-drop sequence hibernate_sequence if exists;
+drop table if exists amenity;
+drop table if exists location;
+drop table if exists room;
+drop table if exists room_amenities;
+drop table if exists booked_slot;
+drop table if exists time_slot;
+drop sequence hibernate_sequence;
 create sequence hibernate_sequence start with 1 increment by 1;
 create table amenity (amenity_id integer not null, feature varchar(255), name varchar(255), primary key (amenity_id));
 create table location (location_id integer not null, building_name varchar(255), city varchar(255), floor integer not null, primary key (location_id));
