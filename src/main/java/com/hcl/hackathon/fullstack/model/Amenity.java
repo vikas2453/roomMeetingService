@@ -20,7 +20,7 @@ public class Amenity {
 	
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value="Id for amenity", example="1")
 	private int amenityId;
 	

@@ -18,34 +18,33 @@ import com.hcl.hackathon.fullstack.config.Log;
 import com.hcl.hackathon.fullstack.model.Room;
 import com.hcl.hackathon.fullstack.service.RoomService;
 
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
 @AllArgsConstructor
-//@CrossOrigin(origins = "http://localhost:4200")
+// @CrossOrigin(origins = "http://localhost:4200")
 public class RoomController {
 
 	@Autowired
 	private RoomService roomService;
 
 	@Log
-	@GetMapping({
-			"/rooms/{date}/{startTime}/{endTime}/{cityName}/{buildingName}/{floor}",
-			 "/rooms/{date}/{startTime}/{endTime}/{cityName}/{buildingName}", 
-			 "/rooms/{date}/{startTime}/{endTime}/{cityName}",
-			 "/rooms/{date}/{startTime}/{endTime}",
-			 "/rooms"
-			 })
+	@GetMapping({ "/rooms/{date}/{startTime}/{endTime}/{cityName}/{buildingName}/{floor}",
+			"/rooms/{date}/{startTime}/{endTime}/{cityName}/{buildingName}",
+			"/rooms/{date}/{startTime}/{endTime}/{cityName}", "/rooms/{date}/{startTime}/{endTime}", "/rooms" })
 	// @GetMapping(value = "/rooms/{cityName}/{buildingName}/{floor}")
-	public List<Room> roomDetails(@PathVariable(value="cityName", required=false) String cityName,
-			@PathVariable(value = "buildingName", required = false) String buildingName,
-			@PathVariable(value = "floor", required = false) Integer floor,
-			@PathVariable(value = "date", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date,
-			//@PathVariable(value = "startTime", required = false) @DateTimeFormat(pattern = "HH:MM") LocalTime startTime,
-			@PathVariable(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
-			@PathVariable(value = "endTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime) {
+	public List<Room> roomDetails(
+			@ApiParam(example = "Salt Lake City") @PathVariable(value = "cityName", required = false) String cityName,
+			@ApiParam(example = "Sweet Candy building") @PathVariable(value = "buildingName", required = false) String buildingName,
+			@ApiParam(example = "2") @PathVariable(value = "floor", required = false) Integer floor,
+			@ApiParam(example = "07-07-2017") @PathVariable(value = "date", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date,
+			// @PathVariable(value = "startTime", required = false) @DateTimeFormat(pattern
+			// = "HH:MM") LocalTime startTime,
+			@ApiParam(example = "13:30") @PathVariable(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
+			@ApiParam(example = "14:30")@PathVariable(value = "endTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime) {
 
 		log.info("startTime+ " + startTime);
 

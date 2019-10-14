@@ -1,1 +1,1 @@
-Alter table Room add constraint roomName_loc unique(room_name, LOCATION_LOCATION_ID);
+Alter table room add constraint roomName_loc unique(room_name, LOCATION_LOCATION_ID);

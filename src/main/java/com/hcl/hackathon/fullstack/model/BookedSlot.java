@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class BookedSlot {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	int bookedSlotId;
 	
