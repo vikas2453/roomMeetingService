@@ -17,7 +17,7 @@ phases:
        - cd /root/.m2/repository/com/hcl/hackathon/fullstack/FullStackApplication/0.0.1-SNAPSHOT/
 artifacts:
   files:
-    - FullStackApplication-0.0.1-SNAPSHOT.jar
+    - /root/.m2/repository/com/hcl/hackathon/fullstack/FullStackApplication/0.0.1-SNAPSHOT/FullStackApplication-0.0.1-SNAPSHOT.jar
 cache:
   paths:
     -'root/.m2/**/*'
