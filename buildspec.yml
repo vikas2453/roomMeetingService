@@ -14,9 +14,10 @@ phases:
   post_build:
     commands:
        - echo build completed on `Date`
+       - cd /root/.m2/repository/com/hcl/hackathon/fullstack/FullStackApplication/0.0.1-SNAPSHOT/
 artifacts:
   files:
-    - /target
+    - FullStackApplication-0.0.1-SNAPSHOT.jar
 cache:
   paths:
     -'root/.m2/**/*'
