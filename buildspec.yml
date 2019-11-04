@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Nothing to do in the install commands
+  pre_build: 
+    commands:
+      - cd roomMeetingService
+  build:
+    commands:
+      - echo build started on `Date`
+      - mvn clean install
+  post_build:
+    commands:
+       - echo build completed on `Date`
+artifacts:
+  files:
+    - roomMeetingService/target/roomMeetingService.jar
+cache:
+  paths:
+    -'root/.m2/**/*'
