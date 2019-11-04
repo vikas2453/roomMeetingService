@@ -16,7 +16,7 @@ phases:
        - echo build completed on `Date`
 artifacts:
   files:
-    - FullStackApplication-0.0.1-SNAPSHOT.jar
+    - /target
 cache:
   paths:
     -'root/.m2/**/*'
