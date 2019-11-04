@@ -16,7 +16,7 @@ phases:
        - echo build completed on `Date`
 artifacts:
   files:
-    - roomMeetingService/target/FullStackApplication-0.0.1-SNAPSHOT.jar
+    - FullStackApplication-0.0.1-SNAPSHOT.jar
 cache:
   paths:
     -'root/.m2/**/*'
