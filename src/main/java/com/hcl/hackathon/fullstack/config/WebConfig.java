@@ -28,7 +28,7 @@ public class WebConfig {
   
   @Bean
   public Filter TracingFilter() {
-    return new AWSXRayServletFilter("Scorekeep");
+    return new AWSXRayServletFilter("Meeting");
   }
   
  /* @Bean
